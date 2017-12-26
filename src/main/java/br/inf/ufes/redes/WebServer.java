@@ -1,3 +1,5 @@
+package br.inf.ufes.redes;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -34,18 +36,51 @@ public class WebServer {
         if (isHead) System.out.println("HTTP/1.0 HEAD Response:");
         else System.out.println("HTTP/1.0 GET Response:");
         try {
-            URL url = WebServer.class.getClassLoader().getResource(fileName);
-            String filePath = url.getPath();
-            File file = new File(filePath);
-            int numOfBytes = (int) file.length();
-            byte[] fileInBytes = new byte[numOfBytes];
-            FileInputStream inFile = new FileInputStream(filePath);
-            inFile.read(fileInBytes);
+//            URL url = WebServer.class.getResource("/" + fileName);
+            // System.out.println("File path: " +filePath);
+//            File file = new File(url.toURI());
+//            int numOfBytes = (int) file.length();
+//            byte[] fileInBytes = new byte[numOfBytes];
+//            FileInputStream inFile = new FileInputStream(file);
+//            inFile.read(fileInBytes);
+            System.out.println(WebServer.class.getResource("/" + fileName).getPath());
+            InputStream fileInputStream = WebServer.class.getResourceAsStream("/" + fileName);
+            int read;
+            byte[] buffer = new byte[1024];
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            while ((read = fileInputStream.read(buffer)) > 0) outputStream.write(buffer, 0, read);
+            byte[] bytes = outputStream.toByteArray();
+
             String output = "HTTP/1.0 200 Document Follows\r\n";
             outToClient.writeBytes(output);
             System.out.print("  " + output);
+            if (fileName.endsWith("html")) {
+                output = "Content-Type: text/html\r\n";
+                outToClient.writeBytes(output);
+                System.out.print("  " + output);
+            }
+            if (fileName.endsWith("js")) {
+                output = "Content-Type: application/javascript\r\n";
+                outToClient.writeBytes(output);
+                System.out.print("  " + output);
+            }
+            if (fileName.endsWith("css")) {
+                output = "Content-Type: text/css\r\n";
+                outToClient.writeBytes(output);
+                System.out.print("  " + output);
+            }
+            if (fileName.endsWith("woff2")) {
+                output = "Content-Type: font/woff2\r\n";
+                outToClient.writeBytes(output);
+                System.out.print("  " + output);
+            }
             if (fileName.endsWith("jpg")) {
                 output = "Content-Type: image/jpeg\r\n";
+                outToClient.writeBytes(output);
+                System.out.print("  " + output);
+            }
+            if (fileName.endsWith("png")) {
+                output = "Content-Type: image/png\r\n";
                 outToClient.writeBytes(output);
                 System.out.print("  " + output);
             }
@@ -59,12 +94,14 @@ public class WebServer {
                 outToClient.writeBytes(output);
                 System.out.print("  " + output);
             }
-            System.out.print("  Content-length: " + numOfBytes + "\r\n");
-            outToClient.writeBytes("Content-length: " + numOfBytes + "\r\n");
+            System.out.print("  Content-length: " + bytes.length + "\r\n");
+            outToClient.writeBytes("Content-length: " + bytes.length + "\r\n");
             System.out.print("  \r\n");
             outToClient.writeBytes("\r\n");
-            if (!isHead) outToClient.write(fileInBytes, 0, numOfBytes);
+            if (!isHead) outToClient.write(bytes, 0, bytes.length);
         } catch (Exception e) {
+            if (e instanceof NullPointerException) System.out.println("FileName: " + fileName);
+            e.printStackTrace();
             String output = "HTTP/1.0 404 Not Found\r\n";
             outToClient.writeBytes(output);
             System.out.print("  " + output);
@@ -90,14 +127,15 @@ public class WebServer {
         while (true) {
             Socket socket = listenSocket.accept();
             System.out.println("Creating Thread to attend request");
-            new RespondThread(socket, aux++).start();
+            RespondThread currentThread = new RespondThread(socket, aux++);
+            System.out.println("Thread " + currentThread.id + " created successfully");
+            currentThread.start();
         }
     }
     static class RespondThread extends Thread {
         Socket socket;
         int id;
         public RespondThread(Socket socket, int id) {
-            System.out.println("Thread " + id + " created successfully");
             this.socket = socket;
             this.id = id;
         }

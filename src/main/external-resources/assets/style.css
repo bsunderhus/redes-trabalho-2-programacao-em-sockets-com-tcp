@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+}
+.anchor{
+    display: block;
+    height: 64px;
+    margin-top: -64px;
+    visibility: hidden;
+}
+.item_hover:hover {
+    background-color: whitesmoke;
+}
+
+.log {
+    height: 400px;
+    overflow: auto;
+    background-color: #212121;
+    color: whitesmoke;
+    padding: 0 15px;
+    font-size: 1.3em;
+}
+
+.happy_holidays {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

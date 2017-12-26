@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trabalho de redes</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="assets/material-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/material-components-web.min.css">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="mdc-toolbar mdc-toolbar--fixed">
+    <div class="mdc-toolbar__row">
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+            <span class="mdc-toolbar__title">WebServer</span>
+        </section>
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-end mdc-toolbar__section--shrink-to-fit">
+            <nav id="tab-bar" class="mdc-tab-bar"  data-mdc-auto-init="MDCTabBar">
+                <a class="mdc-tab" href="#introduction">Introdução</a>
+                <a class="mdc-tab" href="#code_description">Descrição do Código</a>
+                <a class="mdc-tab" href="#tests_description">Descrição de testes</a>
+                <a class="mdc-tab" href="#conclusion">Conclusão</a>
+                <span class="mdc-tab-bar__indicator"></span>
+            </nav>
+        </section>
+    </div>
+</header>
+<main class="mdc-toolbar-fixed-adjust mdc-layout-grid">
+    <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 mdc-layout-grid__cell--align-middle">
+            <span class="anchor" id="introduction"></span>
+            <div class="mdc-card">
+                <section class="mdc-card__primary">
+                    <h1 class="mdc-card__title mdc-card__title--large">Introdução</h1>
+                </section>
+                <section class="mdc-card__supporting-text">
+                    No universo da ciência da computação a linguagem Java esta sendo bastante utilizada para o desenvolvimento de servidores web. Isso se deve a sua arquitetura robusta, a facilidade no desenvolvimento em equipe e permite a criação de apps desktop multiplataforma. Este trabalho tem como objetivo construir, em Java, um Servidor Web multithreaded, com analisador de protocolo HTTP. Porém, somente para pacotes do método GET e HEAD deste protocolo, com o intuito de simplificar o trabalho.
+                </section>
+                <section class="mdc-card__supporting-text">
+                    Este aquivo serve como relatório da aplicação e tem como objetivo ser prova de conceito do funcionamento da própria aplicação. Neste arquivo é realizado a importação de fontes, css, javascript, txt, gif, png e outros, totalizando 12 arquvios a serem processados em threads diferenciadas, para provar a funcionalidade do servidor em prover assincronamente tais arquivos. O objetivo do servidor não é a otimização do processamento através de threads, então nenhuma limitaçao foi emposta no número de threads gerados.
+                </section>
+            </div>
+        </div>
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12  mdc-layout-grid__cell--align-middle">
+            <span class="anchor" id="code_description"></span>
+            <div class="mdc-card">
+                <section class="mdc-card__primary">
+                    <h1 class="mdc-card__title mdc-card__title--large">Descrição do Código</h1>
+                    <a href="/code.html" class="mdc-button mdc-button--unelevated mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple">
+                        <i class="material-icons mdc-button__icon">code</i>
+                        Código
+                    </a>
+                </section>
+                <section class="mdc-card__supporting-text">
+                    <p>
+                        Com o objetivo de simplificar e manter sucinto o trabalho, o mesmo apresenta somente duas classe, <b>br.inf.ufes.redes.WebServer</b> e <b>br.inf.ufes.redes.WebServer.RespondThread</b>.
+                    </p>
+                    <p>
+                        <b>Webserver</b> representa o servidor em si, sendo meramente uma classe que aglomera funções estáticas que são chamadas para o processamento das mensagens que vem de um Socket. Os principais trabalhos do servidor são servir como porta de entrada para a aplicação, instaciar o serviço TCP, manter vivo a conexão escutando a porta por novas requisições e inicializar Threads para o processamento, analise e resposta de mensagens.
+                    </p>
+                    <p>
+                        A classe <b>Webserver.RespondThread</b> é a responsável por executar a invocação dos métodos estáticos declarados no servidor para processamento das mensagens. Sendo assim responsável pela analise de validação da mesma e também responsável por responde-la.
+                    </p>
+                </section>
+            </div>
+        </div>
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12  mdc-layout-grid__cell--align-middle">
+            <span class="anchor" id="tests_description"></span>
+            <div class="mdc-card">
+                <section class="mdc-card__primary">
+                    <h1 class="mdc-card__title mdc-card__title--large">Descrição dos Testes</h1>
+                    <a target="_blank" href="assets/gif.gif" class="mdc-button mdc-button--unelevated mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple">GIF</a>
+                    <a target="_blank" href="assets/png.png" class="mdc-button mdc-button--unelevated mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple">PNG</a>
+                    <a target="_blank" href="assets/txt.txt" class="mdc-button mdc-button--unelevated mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple">TXT</a>
+                </section>
+                <section class="mdc-card__supporting-text">
+                    Os testes foram conduzidos com o auxilio de métodos nativos do próprio browser, mais especificamente com a função <b><a href="https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API">fetch</a></b> da linguagem Javascript.
+                </section>
+                <section class="mdc-card__supporting-text">
+                    Fetch é um método disponível nos browsers mais modernos e é utilizado no desenvolvimento web para obtenção de pacotes HTTP.
+                </section>
+                <section class="mdc-card__supporting-text"><img src="assets/fetch.png"></section>
+                <section class="mdc-card__supporting-text">
+                    Para acompanhar a invocação das funções fetch, basta <b>clicar</b> no elemento desejado da lista abaixo e acompanhar o resultado da requisição pelo DevTools do seu browser (recomendo chrome ou firefox), para acessar o DevTools é só apertar F12. Na aba <i>Network</i> haverá uma lista de todas as requisições realizadas a partir do momento em que o DevTools foi aberto, nesta lista o campo <i>Type</i> indicará se a requisição foi feita através do método fetch. A imagem acima mostra um exemplo de como ver no <i>Network</i> os pacotes HTTP enviados e recebidos. É possível analisar o Header e Content de cada pacote facilmente.
+                </section>
+                <nav class="mdc-list">
+                    <a onclick="fetchPath(event, '/', 'HEAD')" href="/" class="mdc-list-item item_hover" data-mdc-auto-init="MDCRipple">
+                            <span class="mdc-list-item__text">
+                                HEAD / HTTP/1.0
+                                <span class="mdc-list-item__text__secondary mdc-typography--caption">Retorna 200 Document Follows, porém, sem o conteúdo da mensagem</span>
+                            </span>
+                    </a>
+                    <a onclick="fetchPath(event, '/', 'GET')" href="/" class="mdc-list-item item_hover" data-mdc-auto-init="MDCRipple">
+                            <span class="mdc-list-item__text">
+                                GET / HTTP/1.0
+                                <span class="mdc-list-item__text__secondary mdc-typography--caption">Retorna 200 Document Follows</span>
+                            </span>
+                    </a>
+                    <a onclick="fetchPath(event, '/not-found', 'GET')" href="/not-found" class="mdc-list-item item_hover" data-mdc-auto-init="MDCRipple">
+                            <span class="mdc-list-item__text">
+                                GET /not-found HTTP/1.0
+                                <span class="mdc-list-item__text__secondary mdc-typography--caption">Retorna 404 pagina não encontrada</span>
+                            </span>
+                    </a>
+                    <a onclick="fetchPath(event, '/', 'BLABLABLA')" href="/" class="mdc-list-item item_hover" data-mdc-auto-init="MDCRipple">
+                            <span class="mdc-list-item__text">
+                                BLABLABLA / HTTP/1.0
+                                <span class="mdc-list-item__text__secondary mdc-typography--caption">Retorna 400 Bad Request</span>
+                            </span>
+                    </a>
+                </nav>
+                <section class="mdc-card__supporting-text">
+                    Ao carregar a pagina http://localhost:3000/ podemos observar pelos <b>logs</b> do <b>WebServer</b> a assínconicidade de alguns tipos de arquivos processados pelo browser. Por exemplo, a Thread <b>1</b> é executada sem nenhuma outra em paralelo, já que ela é a Thread que carrega o .html, nas Threads <b>2, 3 e 4</b> podemos analisar o mesmo efeito acontecendo já que todos os elementos do <b>header</b> do html estão sendo carregados. Agora ao chegarmos no <b>body</b> do html temos os processamentos de .png, .gif, .js e .js.map que são executados em paralelo (exceto os 2 penúltimos javascript, estes são seriais nessa ordem) criando assim o restante das Threads. O log dessas Threads são embolados devido a concorrência para imprimir no console.
+                </section>
+                <pre class="log">
+Web server listening to port 3000...
+Creating Thread to attend request
+Thread 1 created successfully
+Starting Thread 1
+Starting to process request...
+HTTP/1.1 GET Request:
+  GET / HTTP/1.1
+  Host: localhost:3000
+  Connection: keep-alive
+  Pragma: no-cache
+  Cache-Control: no-cache
+  Upgrade-Insecure-Requests: 1
+  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: pt,en-US;q=0.9,en;q=0.8
+  Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
+HTTP/1.0 GET Response:
+/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/index.html
+  HTTP/1.0 200 Document Follows
+  Content-Type: text/html
+  Content-length: 14871
+
+Stopping Thread 1
+Creating Thread to attend request
+Thread 2 created successfully
+Creating Thread to attend request
+Thread 3 created successfully
+Creating Thread to attend request
+Thread 4 created successfully
+Starting Thread 2
+Starting Thread 3
+Starting to process request...
+Starting to process request...
+HTTP/1.1 GET Request:
+Starting Thread 4
+Starting to process request...
+  GET /assets/material-components-web.min.css HTTP/1.1
+  Host: localhost:3000
+  Connection: keep-alive
+  Pragma: no-cache
+  Cache-Control: no-cache
+  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+  Accept: text/css,*/*;q=0.1
+  Referer: http://localhost:3000/
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: pt,en-US;q=0.9,en;q=0.8
+  Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
+HTTP/1.0 GET Response:
+HTTP/1.1 GET Request:
+  GET /assets/style.css HTTP/1.1
+  Host: localhost:3000
+  Connection: keep-alive
+  Pragma: no-cache
+  Cache-Control: no-cache
+  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+  Accept: text/css,*/*;q=0.1
+  Referer: http://localhost:3000/
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: pt,en-US;q=0.9,en;q=0.8
+  Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
+HTTP/1.0 GET Response:
+/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/material-components-web.min.css
+HTTP/1.1 GET Request:
+  GET /assets/material-icons.css HTTP/1.1
+  Host: localhost:3000
+  Connection: keep-alive
+  Pragma: no-cache
+/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/style.css
+  Cache-Control: no-cache
+  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+  Accept: text/css,*/*;q=0.1
+  Referer: http://localhost:3000/
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: pt,en-US;q=0.9,en;q=0.8
+  Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
+HTTP/1.0 GET Response:
+/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/material-icons.css
+  HTTP/1.0 200 Document Follows
+  Content-Type: text/css
+  Content-length: 417
+
+  HTTP/1.0 200 Document Follows
+Stopping Thread 4
+  Content-Type: text/css
+  Content-length: 508
+
+Stopping Thread 2
+  HTTP/1.0 200 Document Follows
+  Content-Type: text/css
+  Content-length: 240115
+
+Stopping Thread 3
+Creating Thread to attend request
+Thread 5 created successfully
+Starting Thread 5
+Starting to process request...
+HTTP/1.1 GET Request:
+  GET /assets/fetch.min.js HTTP/1.1
+  Host: localhost:3000
+  Connection: keep-alive
+  Pragma: no-cache
+  Cache-Control: no-cache
+  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+  Accept: */*
+  Referer: http://localhost:3000/
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: pt,en-US;q=0.9,en;q=0.8
+  Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
+HTTP/1.0 GET Response:
+/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/fetch.min.js
+  HTTP/1.0 200 Document Follows
+  Content-Type: application/javascript
+  Content-length: 7289
+
+Stopping Thread 5
+Creating Thread to attend request
+Thread 6 created successfully
+Starting Thread 6
+Starting to process request...
+HTTP/1.1 GET Request:
+  GET /assets/material-components-web.min.js HTTP/1.1
+  Host: localhost:3000
+  Connection: keep-alive
+  Pragma: no-cache
+  Cache-Control: no-cache
+  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+  Accept: */*
+  Referer: http://localhost:3000/
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: pt,en-US;q=0.9,en;q=0.8
+  Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
+HTTP/1.0 GET Response:
+/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/material-components-web.min.js
+  HTTP/1.0 200 Document Follows
+  Content-Type: application/javascript
+  Content-length: 222927
+
+Stopping Thread 6
+Creating Thread to attend request
+Thread 7 created successfully
+Starting Thread 7
+Starting to process request...
+HTTP/1.1 GET Request:
+  GET /assets/fetch.png HTTP/1.1
+  Host: localhost:3000
+  Connection: keep-alive
+  Pragma: no-cache
+  Cache-Control: no-cache
+  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+  Accept: image/webp,image/apng,image/*,*/*;q=0.8
+  Referer: http://localhost:3000/
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: pt,en-US;q=0.9,en;q=0.8
+  Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
+HTTP/1.0 GET Response:
+/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/fetch.png
+  HTTP/1.0 200 Document Follows
+  Content-Type: image/png
+  Content-length: 33507
+
+Stopping Thread 7
+Creating Thread to attend request
+Thread 8 created successfully
+Starting Thread 8
+Starting to process request...
+HTTP/1.1 GET Request:
+  GET /assets/duvida.png HTTP/1.1
+  Host: localhost:3000
+  Connection: keep-alive
+  Pragma: no-cache
+  Cache-Control: no-cache
+  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+  Accept: image/webp,image/apng,image/*,*/*;q=0.8
+  Referer: http://localhost:3000/
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: pt,en-US;q=0.9,en;q=0.8
+  Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
+HTTP/1.0 GET Response:
+/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/duvida.png
+  HTTP/1.0 200 Document Follows
+  Content-Type: image/png
+  Content-length: 20010
+
+Stopping Thread 8
+Creating Thread to attend request
+Thread 9 created successfully
+Starting Thread 9
+Starting to process request...
+HTTP/1.1 GET Request:
+  GET /assets/gif.gif HTTP/1.1
+  Host: localhost:3000
+  Connection: keep-alive
+  Pragma: no-cache
+  Cache-Control: no-cache
+  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+  Accept: image/webp,image/apng,image/*,*/*;q=0.8
+  Referer: http://localhost:3000/
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: pt,en-US;q=0.9,en;q=0.8
+  Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
+HTTP/1.0 GET Response:
+/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/gif.gif
+  HTTP/1.0 200 Document Follows
+  Content-Type: image/gif
+  Content-length: 1635239
+
+Creating Thread to attend request
+Thread 10 created successfully
+Starting Thread 10
+Starting to process request...
+HTTP/1.1 GET Request:
+  GET /assets/init.js HTTP/1.1
+  Host: localhost:3000
+  Connection: keep-alive
+  Pragma: no-cache
+  Cache-Control: no-cache
+  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+  Accept: */*
+  Referer: http://localhost:3000/
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: pt,en-US;q=0.9,en;q=0.8
+  Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
+HTTP/1.0 GET Response:
+/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/init.js
+  HTTP/1.0 200 Document Follows
+  Content-Type: application/javascript
+  Content-length: 108
+
+Stopping Thread 10
+Stopping Thread 9
+Creating Thread to attend request
+Thread 11 created successfully
+Starting Thread 11
+Starting to process request...
+HTTP/1.1 GET Request:
+  GET /assets/material-icons.woff2 HTTP/1.1
+  Host: localhost:3000
+  Connection: keep-alive
+  Pragma: no-cache
+  Cache-Control: no-cache
+  Origin: http://localhost:3000
+  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+  Accept: */*
+  Referer: http://localhost:3000/assets/material-icons.css
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: pt,en-US;q=0.9,en;q=0.8
+  Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
+HTTP/1.0 GET Response:
+/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/material-icons.woff2
+  HTTP/1.0 200 Document Follows
+  Content-Type: font/woff2
+  Content-length: 48876
+
+Stopping Thread 11
+Creating Thread to attend request
+Thread 12 created successfully
+Starting Thread 12
+Starting to process request...
+HTTP/1.1 GET Request:
+  GET /assets/fetch.min.js.map HTTP/1.1
+  Host: localhost:3000
+  Connection: keep-alive
+  Cache-Control: no-cache
+  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: pt,en-US;q=0.9,en;q=0.8
+  Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
+HTTP/1.0 GET Response:
+/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/fetch.min.js.map
+  HTTP/1.0 200 Document Follows
+  Content-length: 9234
+
+Stopping Thread 12
+                </pre>
+                <section class="mdc-card__supporting-text">
+                    É importante lembrar que nem sempre esse cenário vai se repetir, devido ao trafego de rede, a ordem dos pacotes pode mudar, já que vários pacotes podem ser buscados paralelamente.
+                </section>
+            </div>
+        </div>
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12  mdc-layout-grid__cell--align-middle">
+            <span class="anchor" id="conclusion"></span>
+            <div class="mdc-card">
+                <section class="mdc-card__primary">
+                    <h1 class="mdc-card__title mdc-card__title--large">Conclusão</h1>
+                </section>
+                <section class="mdc-card__supporting-text">
+                    O projeto proporcionou ter uma visão mais clara de como funciona um WebServer multithreaded e analisar um protocolo HTTP.
+                    <br>
+                    Houve uma certa dificuldade inicial em entender a partir do enunciado se era necessário verificar ou não todas as linhas de um cabeçalho HTTP ou se somente era necessário ler as mesmas.
+                </section>
+                <section class="mdc-card__supporting-text"><img src="assets/duvida.png" alt="duvida"></section>
+                <section class="mdc-card__supporting-text">
+                    Como o texto do enunciado sugere que a necessidade é somente para impressão no console, foi adotado não verificar o cabeçalho todo e somente imprimi-lo no console.
+                </section>
+                <section class="mdc-card__supporting-text happy_holidays">
+                    Feliz Natal e um prospero ano novo!
+                    <img src="assets/gif.gif" alt="GIF">
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="assets/fetch.min.js"></script>
+<script src="assets/material-components-web.min.js"></script>
+<script async defer src="assets/init.js"></script>
+</body>
+</html>
