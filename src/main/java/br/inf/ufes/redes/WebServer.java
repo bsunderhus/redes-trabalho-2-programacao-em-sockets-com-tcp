@@ -52,7 +52,6 @@ public class WebServer {
         if (isHead) System.out.println("HTTP/1.0 HEAD Response:");
         else System.out.println("HTTP/1.0 GET Response:");
         try {
-            System.out.println(WebServer.class.getResource("/" + fileName).getPath());
             InputStream fileInputStream = WebServer.class.getResourceAsStream("/" + fileName);
             int read;
             byte[] buffer = new byte[1024];
@@ -108,14 +107,14 @@ public class WebServer {
             System.out.print("  \r\n");
             outToClient.writeBytes("\r\n");
             if (!isHead) outToClient.write(bytes, 0, bytes.length);
-        } catch (Exception e) {
-            if (e instanceof NullPointerException) System.out.println("FileName: " + fileName);
-            e.printStackTrace();
+        } catch (IOException | NullPointerException e) {
             String output = "HTTP/1.0 404 Not Found\r\n";
             outToClient.writeBytes(output);
             System.out.print("  " + output);
             System.out.print("  \r\n");
             outToClient.writeBytes("\r\n");
+            if (e instanceof  NullPointerException) System.out.println("FileName: " + fileName);
+            e.printStackTrace();
         }
     }
 

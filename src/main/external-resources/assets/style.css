@@ -20,7 +20,7 @@ body {
     font-size: 1.3em;
 }
 
-.happy_holidays {
+.image_with_text {
     display: flex;
     flex-direction: column;
     align-items: center;

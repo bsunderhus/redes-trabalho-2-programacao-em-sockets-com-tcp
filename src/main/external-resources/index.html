@@ -14,7 +14,7 @@
         <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
             <span class="mdc-toolbar__title">WebServer</span>
         </section>
-        <section class="mdc-toolbar__section mdc-toolbar__section--align-end mdc-toolbar__section--shrink-to-fit">
+        <section class="mdc-toolbar__setiion mdc-toolbar__section--align-end mdc-toolbar__section--shrink-to-fit">
             <nav id="tab-bar" class="mdc-tab-bar"  data-mdc-auto-init="MDCTabBar">
                 <a class="mdc-tab" href="#introduction">Introdução</a>
                 <a class="mdc-tab" href="#code_description">Descrição do Código</a>
@@ -32,6 +32,7 @@
             <div class="mdc-card">
                 <section class="mdc-card__primary">
                     <h1 class="mdc-card__title mdc-card__title--large">Introdução</h1>
+                    <h2 class="mdc-card__subtitle">Trabalho feito por: Bernardo Sunderhus, Lucas Kramer, Luiz Passamani e Rodrigo Zardini</h2>
                 </section>
                 <section class="mdc-card__supporting-text">
                     No universo da ciência da computação a linguagem Java esta sendo bastante utilizada para o desenvolvimento de servidores web. Isso se deve a sua arquitetura robusta, a facilidade no desenvolvimento em equipe e permite a criação de apps desktop multiplataforma. Este trabalho tem como objetivo construir, em Java, um Servidor Web multithreaded, com analisador de protocolo HTTP. Porém, somente para pacotes do método GET e HEAD deste protocolo, com o intuito de simplificar o trabalho.
@@ -79,32 +80,35 @@
                 <section class="mdc-card__supporting-text">
                     Fetch é um método disponível nos browsers mais modernos e é utilizado no desenvolvimento web para obtenção de pacotes HTTP.
                 </section>
-                <section class="mdc-card__supporting-text"><img src="assets/fetch.png"></section>
+                <section class="mdc-card__supporting-text image_with_text">
+                    <img src="assets/fetch.png">
+                    Análise de um GET / realizado pelo método fetch
+                </section>
                 <section class="mdc-card__supporting-text">
                     Para acompanhar a invocação das funções fetch, basta <b>clicar</b> no elemento desejado da lista abaixo e acompanhar o resultado da requisição pelo DevTools do seu browser (recomendo chrome ou firefox), para acessar o DevTools é só apertar F12. Na aba <i>Network</i> haverá uma lista de todas as requisições realizadas a partir do momento em que o DevTools foi aberto, nesta lista o campo <i>Type</i> indicará se a requisição foi feita através do método fetch. A imagem acima mostra um exemplo de como ver no <i>Network</i> os pacotes HTTP enviados e recebidos. É possível analisar o Header e Content de cada pacote facilmente.
                 </section>
                 <nav class="mdc-list">
                     <a onclick="fetchPath(event, '/', 'HEAD')" href="/" class="mdc-list-item item_hover" data-mdc-auto-init="MDCRipple">
                             <span class="mdc-list-item__text">
-                                HEAD / HTTP/1.0
+                                HEAD /
                                 <span class="mdc-list-item__text__secondary mdc-typography--caption">Retorna 200 Document Follows, porém, sem o conteúdo da mensagem</span>
                             </span>
                     </a>
                     <a onclick="fetchPath(event, '/', 'GET')" href="/" class="mdc-list-item item_hover" data-mdc-auto-init="MDCRipple">
                             <span class="mdc-list-item__text">
-                                GET / HTTP/1.0
+                                GET /
                                 <span class="mdc-list-item__text__secondary mdc-typography--caption">Retorna 200 Document Follows</span>
                             </span>
                     </a>
                     <a onclick="fetchPath(event, '/not-found', 'GET')" href="/not-found" class="mdc-list-item item_hover" data-mdc-auto-init="MDCRipple">
                             <span class="mdc-list-item__text">
-                                GET /not-found HTTP/1.0
+                                GET /not-found
                                 <span class="mdc-list-item__text__secondary mdc-typography--caption">Retorna 404 pagina não encontrada</span>
                             </span>
                     </a>
                     <a onclick="fetchPath(event, '/', 'BLABLABLA')" href="/" class="mdc-list-item item_hover" data-mdc-auto-init="MDCRipple">
                             <span class="mdc-list-item__text">
-                                BLABLABLA / HTTP/1.0
+                                BLABLABLA /
                                 <span class="mdc-list-item__text__secondary mdc-typography--caption">Retorna 400 Bad Request</span>
                             </span>
                     </a>
@@ -131,7 +135,6 @@ HTTP/1.1 GET Request:
   Accept-Language: pt,en-US;q=0.9,en;q=0.8
   Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
 HTTP/1.0 GET Response:
-/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/index.html
   HTTP/1.0 200 Document Follows
   Content-Type: text/html
   Content-length: 14871
@@ -175,13 +178,11 @@ HTTP/1.1 GET Request:
   Accept-Language: pt,en-US;q=0.9,en;q=0.8
   Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
 HTTP/1.0 GET Response:
-/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/material-components-web.min.css
 HTTP/1.1 GET Request:
   GET /assets/material-icons.css HTTP/1.1
   Host: localhost:3000
   Connection: keep-alive
   Pragma: no-cache
-/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/style.css
   Cache-Control: no-cache
   User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36
   Accept: text/css,*/*;q=0.1
@@ -223,7 +224,6 @@ HTTP/1.1 GET Request:
   Accept-Language: pt,en-US;q=0.9,en;q=0.8
   Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
 HTTP/1.0 GET Response:
-/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/fetch.min.js
   HTTP/1.0 200 Document Follows
   Content-Type: application/javascript
   Content-length: 7289
@@ -246,7 +246,6 @@ HTTP/1.1 GET Request:
   Accept-Language: pt,en-US;q=0.9,en;q=0.8
   Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
 HTTP/1.0 GET Response:
-/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/material-components-web.min.js
   HTTP/1.0 200 Document Follows
   Content-Type: application/javascript
   Content-length: 222927
@@ -269,7 +268,6 @@ HTTP/1.1 GET Request:
   Accept-Language: pt,en-US;q=0.9,en;q=0.8
   Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
 HTTP/1.0 GET Response:
-/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/fetch.png
   HTTP/1.0 200 Document Follows
   Content-Type: image/png
   Content-length: 33507
@@ -292,7 +290,6 @@ HTTP/1.1 GET Request:
   Accept-Language: pt,en-US;q=0.9,en;q=0.8
   Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
 HTTP/1.0 GET Response:
-/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/duvida.png
   HTTP/1.0 200 Document Follows
   Content-Type: image/png
   Content-length: 20010
@@ -315,7 +312,6 @@ HTTP/1.1 GET Request:
   Accept-Language: pt,en-US;q=0.9,en;q=0.8
   Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
 HTTP/1.0 GET Response:
-/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/gif.gif
   HTTP/1.0 200 Document Follows
   Content-Type: image/gif
   Content-length: 1635239
@@ -337,7 +333,6 @@ HTTP/1.1 GET Request:
   Accept-Language: pt,en-US;q=0.9,en;q=0.8
   Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
 HTTP/1.0 GET Response:
-/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/init.js
   HTTP/1.0 200 Document Follows
   Content-Type: application/javascript
   Content-length: 108
@@ -362,7 +357,6 @@ HTTP/1.1 GET Request:
   Accept-Language: pt,en-US;q=0.9,en;q=0.8
   Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
 HTTP/1.0 GET Response:
-/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/material-icons.woff2
   HTTP/1.0 200 Document Follows
   Content-Type: font/woff2
   Content-length: 48876
@@ -382,7 +376,6 @@ HTTP/1.1 GET Request:
   Accept-Language: pt,en-US;q=0.9,en;q=0.8
   Cookie: Idea-8b524ced=bdae389a-178d-45ff-9e7c-67a788b1eb3b
 HTTP/1.0 GET Response:
-/C:/Users/berna/Documents/Arch/redes-trabalho-2-programacao-em-sockets-com-tcp/target/classes/assets/fetch.min.js.map
   HTTP/1.0 200 Document Follows
   Content-length: 9234
 
@@ -408,9 +401,9 @@ Stopping Thread 12
                 <section class="mdc-card__supporting-text">
                     Como o texto do enunciado sugere que a necessidade é somente para impressão no console, foi adotado não verificar o cabeçalho todo e somente imprimi-lo no console.
                 </section>
-                <section class="mdc-card__supporting-text happy_holidays">
-                    Feliz Natal e um prospero ano novo!
+                <section class="mdc-card__supporting-text image_with_text">
                     <img src="assets/gif.gif" alt="GIF">
+                    Feliz Natal e um prospero ano novo!
                 </section>
             </div>
         </div>
